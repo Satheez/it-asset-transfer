@@ -157,7 +157,7 @@ class FormDetails extends Component
 
     public function render()
     {
-        return view('livewire.form-details');
+        return view('livewire.form-details') ->layout('layouts.app'); // Use Breeze's app.blade.php layout;
     }
 
     public function removeAsset($index)
