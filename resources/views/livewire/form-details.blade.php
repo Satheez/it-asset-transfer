@@ -20,53 +20,6 @@
             border-radius: 4px;
             /*padding: 16px;*/
         }
-
-        /*.signature-pad::before,*/
-        /*.signature-pad::after {*/
-        /*    position: absolute;*/
-        /*    z-index: -1;*/
-        /*    content: '';*/
-        /*    width: 40%;*/
-        /*    height: 10px;*/
-        /*    bottom: 10px;*/
-        /*    background: transparent;*/
-        /*    box-shadow: 0 8px 12px rgba(0, 0, 0, 0.4);*/
-        /*}*/
-
-        /*.signature-pad::before {*/
-        /*    left: 20px;*/
-        /*    -webkit-transform: skew(-3deg) rotate(-3deg);*/
-        /*    transform: skew(-3deg) rotate(-3deg);*/
-        /*}*/
-
-        /*.signature-pad::after {*/
-        /*    right: 20px;*/
-        /*    -webkit-transform: skew(3deg) rotate(3deg);*/
-        /*    transform: skew(3deg) rotate(3deg);*/
-        /*}*/
-
-        /*.signature-pad--body {*/
-        /*    position: relative;*/
-        /*    -webkit-box-flex: 1;*/
-        /*    -ms-flex: 1;*/
-        /*    flex: 1;*/
-        /*    border: 1px solid #f4f4f4;*/
-        /*    border-radius: 4px;*/
-        /*}*/
-
-        /*.signature-pad--body.empty {*/
-        /*    background-color: #333;*/
-        /*}*/
-
-        /*.signature-pad--body canvas {*/
-        /*    position: absolute;*/
-        /*    left: 0;*/
-        /*    top: 0;*/
-        /*    width: 100%;*/
-        /*    height: 100%;*/
-        /*    border-radius: 4px;*/
-        /*    box-shadow: 0 0 5px rgba(0, 0, 0, 0.02) inset;*/
-        /*}*/
     </style>
 @endpush
 
