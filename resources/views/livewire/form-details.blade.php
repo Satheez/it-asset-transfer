@@ -1,28 +1,3 @@
-@push('styles')
-    <style>
-        .signature-pad {
-            position: relative;
-            display: -webkit-box;
-            display: -ms-flexbox;
-            display: flex;
-            -webkit-box-orient: vertical;
-            -webkit-box-direction: normal;
-            -ms-flex-direction: column;
-            flex-direction: column;
-            font-size: 10px;
-            width: 100%;
-            height: 100%;
-            max-width: 700px;
-            max-height: 460px;
-            border: 1px solid #e8e8e8;
-            background-color: #fff;
-            box-shadow: 0 1px 4px rgba(0, 0, 0, 0.27), 0 0 40px rgba(0, 0, 0, 0.08) inset;
-            border-radius: 4px;
-            /*padding: 16px;*/
-        }
-    </style>
-@endpush
-
 <div class="container mt-2">
     <div class="card">
         <div class="card-header">
@@ -155,6 +130,33 @@
         </div>
     </div>
 </div>
+
+
+@push('styles')
+    <style>
+        .signature-pad {
+            position: relative;
+            display: -webkit-box;
+            display: -ms-flexbox;
+            display: flex;
+            -webkit-box-orient: vertical;
+            -webkit-box-direction: normal;
+            -ms-flex-direction: column;
+            flex-direction: column;
+            font-size: 10px;
+            width: 100%;
+            height: 100%;
+            max-width: 700px;
+            max-height: 460px;
+            border: 1px solid #e8e8e8;
+            background-color: #fff;
+            box-shadow: 0 1px 4px rgba(0, 0, 0, 0.27), 0 0 40px rgba(0, 0, 0, 0.08) inset;
+            border-radius: 4px;
+            /*padding: 16px;*/
+        }
+    </style>
+@endpush
+
 @push('scripts')
     <!-- Include Signature Pad JavaScript -->
     <script src="https://cdn.jsdelivr.net/npm/signature_pad@4.1.7/dist/signature_pad.umd.min.js"></script>

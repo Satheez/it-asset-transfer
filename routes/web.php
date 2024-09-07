@@ -14,7 +14,9 @@ Route::view('profile', 'profile')
     ->name('profile');
 
 Route::middleware(['auth'])->group(function () {
-    Route::get('/forms', FormDetails::class)->name('forms.index');
+//    Route::get('/forms', FormDetails::class)->name('forms.index');
+    Route::get('/forms', [FormDetails::class, 'index'])->name('forms.index');
+
     Route::get('/forms/create', FormDetails::class)->name('forms.create');
     Route::get('/forms/{formId}/edit', FormDetails::class)->name('forms.edit');
 });

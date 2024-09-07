@@ -63,6 +63,16 @@ class FormDetails extends Component
         }
     }
 
+    public function index()
+    {
+        // Fetch paginated FormDetail records
+        $formDetails = FormDetail::paginate(10); // Adjust pagination limit as needed
+
+        // Return view with the paginated records
+        return view('livewire.form-index', ['formDetails' => $formDetails])
+            ->layout('layouts.app'); // Using Breeze layout
+    }
+
     public function addAsset()
     {
         $this->assets[] = $this->newAsset;
