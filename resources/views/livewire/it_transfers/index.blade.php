@@ -4,7 +4,7 @@
     <h1>{{ __('IT Asset Transfer Forms') }}</h1>
 
     <!-- Button to create a new form -->
-    <a href="{{ route('it_transfers.create') }}" class="btn btn-success mb-3 float-end">{{ __('Create New Form') }}</a>
+    <a href="{{ route('it-transfers.create') }}" class="btn btn-success mb-3 float-end">{{ __('Create New Form') }}</a>
 
     <!-- Display the paginated records in a table -->
     <table class="table table-bordered">
@@ -18,15 +18,15 @@
         </tr>
         </thead>
         <tbody>
-        @forelse ($itTransfers as $itTransfer)
+        @forelse ($records as $record)
             <tr>
-                <td>{{ $itTransfer->id }}</td>
-                <td>{{ $itTransfer->from_admin_name }}</td>
-                <td>{{ $itTransfer->to_admin_name }}</td>
-                <td>{{ $itTransfer->approved_by_name }}</td>
+                <td>{{ $record->id }}</td>
+                <td>{{ $record->from_admin_name }}</td>
+                <td>{{ $record->to_admin_name }}</td>
+                <td>{{ $record->approved_by_name }}</td>
                 <td>
                     <!-- Edit button -->
-                    <a href="{{ route('it_transfers.edit', $itTransfer->id) }}" class="btn btn-primary">{{ __('Edit') }}</a>
+                    <a href="{{ route('it-transfers.edit', $record->id) }}" class="btn btn-primary">{{ __('Edit') }}</a>
 
                     <!-- You can add other action buttons here if needed -->
                 </td>
@@ -41,7 +41,7 @@
 
     <!-- Pagination links -->
     <div class="d-flex justify-content-center">
-        {{ $itTransfers->links() }}
+        {{ $records->links() }}
     </div>
 </div>
 </x-app-layout>

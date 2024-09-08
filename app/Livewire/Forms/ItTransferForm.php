@@ -66,10 +66,10 @@ class ItTransferForm extends Component
     public function index()
     {
         // Fetch paginated FormDetail records
-        $formDetails = ItTransfer::paginate(10); // Adjust pagination limit as needed
+        $records = ItTransfer::paginate(10); // Adjust pagination limit as needed
 
         // Return view with the paginated records
-        return view('livewire.transfer-pages.form-index', ['formDetails' => $formDetails])
+        return view('livewire.it_transfers.index', ['records' => $records])
             ->layout('layouts.app'); // Using Breeze layout
     }
 
@@ -143,7 +143,7 @@ class ItTransferForm extends Component
 
     public function render()
     {
-        return view('livewire.transfer-pages.form-details')->layout('layouts.app'); // Use Breeze's app.blade.php layout;
+        return view('livewire.it_transfers.it_transfer')->layout('layouts.app'); // Use Breeze's app.blade.php layout;
     }
 
     public function removeAsset($index)
