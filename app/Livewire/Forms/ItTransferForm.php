@@ -15,13 +15,19 @@ class ItTransferForm extends Component
     public $formId;
 
     public array $form = [];
-    public array $assets = [];
+//    public array $assets = [];
     public $newAsset = [
         'serial_number' => '',
         'asset_tag' => '',
         'item_description' => '',
         'assigned_to' => '',
     ];
+
+     public $assets = [
+        ['serial_number' => '', 'asset_tag' => '']
+    ];
+
+
     public $signatureFields = [
         'from_signature',
         'to_signature',
@@ -189,19 +195,14 @@ class ItTransferForm extends Component
             ->toArray();
     }
 
-    /**
-     * Select serial number from suggestions for a specific row.
-     */
-    public function selectSerialNumber($index, string $serialNumber)
+    public function selectSerialNumber($index, string $serialNumber): void
     {
         $this->assets[$index]['serial_number'] = $serialNumber;
         $this->serialNumberSuggestions[$index] = []; // Clear suggestions
-
-
     }
 
 
-    public function selectAssetTag($index, string $assetTag)
+    public function selectAssetTag($index, string $assetTag): void
     {
         $this->assets[$index]['asset_tag'] = $assetTag;
         $this->assetTagSuggestions[$index] = []; // Clear suggestions

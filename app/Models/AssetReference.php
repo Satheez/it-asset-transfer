@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 final class AssetReference extends Model
 {
     use HasFactory;
-    use SoftDeletes;
+//    use SoftDeletes;
 
     public const TYPE_SERIAL_NUMBER = 'serial_number';
     public const TYPE_ASSET_TAG = 'asset_tag';
@@ -21,13 +21,13 @@ final class AssetReference extends Model
         return $query->where('type', $type);
     }
 
-    public function scopeSerialNumber($query)
-    {
-        return $this->scopeOfType($query, self::TYPE_SERIAL_NUMBER);
-    }
-
-    public function scopeAssetTag($query)
-    {
-        return $this->scopeOfType($query, self::TYPE_ASSET_TAG);
-    }
+//    public function scopeSerialNumber($query)
+//    {
+//        return $this->scopeOfType($query, self::TYPE_SERIAL_NUMBER);
+//    }
+//
+//    public function scopeAssetTag($query)
+//    {
+//        return $this->scopeOfType($query, self::TYPE_ASSET_TAG);
+//    }
 }

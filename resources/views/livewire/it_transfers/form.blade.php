@@ -1,167 +1,199 @@
-<div class="container mt-2">
-    <div class="card">
-        <div class="card-header">
-            <h3>{{ $formId ? __('Edit IT Asset Transfer Form') : __('Create IT Asset Transfer Form') }}</h3>
+<div class="container mx-auto mt-4">
+    <div class="bg-white shadow-md rounded-lg">
+        <div class="bg-gray-100 px-4 py-2 border-b border-gray-300">
+            <h3 class="text-lg font-semibold">{{ $formId ? __('Edit IT Asset Transfer Form') : __('Create IT Asset Transfer Form') }}</h3>
         </div>
-        <div class="card-body">
+        <div class="px-4 py-6">
             <form wire:submit.prevent="save">
-
-                <h4>{{ __('From') }}</h4>
-                <div class="row mb-3">
-                    <div class="col-md-6">
-                        <label for="from_admin_name" class="form-label">{{ __('Admin Name') }}</label>
-                        <input type="text" wire:model="form.from_admin_name" class="form-control" required>
+                <h4 class="text-lg font-bold mb-2">{{ __('From') }}</h4>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+                    <div>
+                        <label for="from_admin_name"
+                               class="block text-sm font-medium text-gray-700">{{ __('Admin Name') }}</label>
+                        <input type="text" wire:model="form.from_admin_name"
+                               class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
+                               required>
                     </div>
-                    <div class="col-md-6">
-                        <label for="from_admin_mail_id" class="form-label">{{ __('Admin Mail ID') }}</label>
-                        <input type="email" wire:model="form.from_admin_mail_id" class="form-control" required>
+                    <div>
+                        <label for="from_admin_mail_id"
+                               class="block text-sm font-medium text-gray-700">{{ __('Admin Mail ID') }}</label>
+                        <input type="email" wire:model="form.from_admin_mail_id"
+                               class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
+                               required>
                     </div>
-                    <div class="col-md-6">
-                        <label for="from_signature" class="form-label">{{ __('Signature') }}</label>
-                        <div id="from_signature_pad" class="signature-pad"></div>
+                    <div>
+                        <label for="from_signature"
+                               class="block text-sm font-medium text-gray-700">{{ __('Signature') }}</label>
+                        <div id="from_signature_pad" class="signature-pad border border-gray-300 h-20"></div>
                         <input type="hidden" wire:model="form.from_signature" id="from_signature">
                     </div>
-                    <div class="col-md-6">
-                        <label for="from_site_in_charge_name" class="form-label">{{ __('Site in Charge Name') }}</label>
-                        <input type="text" wire:model="form.from_site_in_charge_name" class="form-control" required>
+                    <div>
+                        <label for="from_site_in_charge_name"
+                               class="block text-sm font-medium text-gray-700">{{ __('Site in Charge Name') }}</label>
+                        <input type="text" wire:model="form.from_site_in_charge_name"
+                               class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
+                               required>
                     </div>
-                    <div class="col-md-6">
-                        <label for="from_site_in_charge_signature" class="form-label">{{ __('Signature') }}</label>
-                        {{--                    <div id="from_site_in_charge_signature_pad" class="signature-pad"></div>--}}
+                    <div>
+                        <label for="from_site_in_charge_signature"
+                               class="block text-sm font-medium text-gray-700">{{ __('Signature') }}</label>
                         <input type="hidden" wire:model="form.from_site_in_charge_signature"
                                id="from_site_in_charge_signature">
                     </div>
                 </div>
 
-                <h4>{{ __('To') }}</h4>
-                <div class="row mb-3">
-                    <div class="col-md-6">
-                        <label for="to_admin_name" class="form-label">{{ __('Admin Name') }}</label>
-                        <input type="text" wire:model="form.to_admin_name" class="form-control" required>
+                <h4 class="text-lg font-bold mb-2">{{ __('To') }}</h4>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+                    <div>
+                        <label for="to_admin_name"
+                               class="block text-sm font-medium text-gray-700">{{ __('Admin Name') }}</label>
+                        <input type="text" wire:model="form.to_admin_name"
+                               class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
+                               required>
                     </div>
-                    <div class="col-md-6">
-                        <label for="to_admin_mail_id" class="form-label">{{ __('Admin Mail ID') }}</label>
-                        <input type="email" wire:model="form.to_admin_mail_id" class="form-control" required>
+                    <div>
+                        <label for="to_admin_mail_id"
+                               class="block text-sm font-medium text-gray-700">{{ __('Admin Mail ID') }}</label>
+                        <input type="email" wire:model="form.to_admin_mail_id"
+                               class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
+                               required>
                     </div>
-                    <div class="col-md-6">
-                        <label for="to_signature" class="form-label">{{ __('Signature') }}</label>
-                        <div id="to_signature_pad" class="signature-pad"></div>
+                    <div>
+                        <label for="to_signature"
+                               class="block text-sm font-medium text-gray-700">{{ __('Signature') }}</label>
+                        <div id="to_signature_pad" class="signature-pad border border-gray-300 h-20"></div>
                         <input type="hidden" wire:model="form.to_signature" id="to_signature">
                     </div>
-                    <div class="col-md-6">
-                        <label for="to_site_in_charge_name" class="form-label">{{ __('Site in Charge Name') }}</label>
-                        <input type="text" wire:model="form.to_site_in_charge_name" class="form-control" required>
+                    <div>
+                        <label for="to_site_in_charge_name"
+                               class="block text-sm font-medium text-gray-700">{{ __('Site in Charge Name') }}</label>
+                        <input type="text" wire:model="form.to_site_in_charge_name"
+                               class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
+                               required>
                     </div>
-                    <div class="col-md-6">
-                        <label for="to_site_in_charge_signature" class="form-label">{{ __('Signature') }}</label>
-                        {{--                    <div id="to_site_in_charge_signature_pad" class="signature-pad"></div>--}}
+                    <div>
+                        <label for="to_site_in_charge_signature"
+                               class="block text-sm font-medium text-gray-700">{{ __('Signature') }}</label>
                         <input type="hidden" wire:model="form.to_site_in_charge_signature"
                                id="to_site_in_charge_signature">
                     </div>
                 </div>
 
-                <h4>{{ __('Approved By IT Department') }}</h4>
-                <div class="row mb-3">
-                    <div class="col-md-6">
-                        <label for="approved_by_name" class="form-label">{{ __('Admin Name') }}</label>
-                        <input type="text" wire:model="form.approved_by_name" class="form-control" required>
+                <h4 class="text-lg font-bold mb-2">{{ __('Approved By IT Department') }}</h4>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+                    <div>
+                        <label for="approved_by_name"
+                               class="block text-sm font-medium text-gray-700">{{ __('Admin Name') }}</label>
+                        <input type="text" wire:model="form.approved_by_name"
+                               class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
+                               required>
                     </div>
-                    <div class="col-md-6">
-                        <label for="to_signature" class="form-label">{{ __('Signature') }}</label>
-                        <div id="approved_by_signature" class="signature-pad"
-                             style="border: 1px solid #000; width: 100%; height: 70px;">
-
-                            <div id="signature-pad" class="signature-pad">
-                                <div id="canvas-wrapper" class="signature-pad--body">
-                                    <canvas style="border: 1px solid #000; width: 100%; height: 70px;"></canvas>
-                                </div>
-                            </div>
-
-                        </div>
+                    <div>
+                        <label for="approved_by_signature"
+                               class="block text-sm font-medium text-gray-700">{{ __('Signature') }}</label>
+                        <div id="approved_by_signature" class="signature-pad border border-gray-300 h-20"></div>
                         <input type="hidden" wire:model="form.approved_by_signature" id="approved_by_signature">
                     </div>
                 </div>
 
-                <h4>{{ __('IT Asset Details') }}</h4>
-                <table class="table table-bordered">
-                    <thead>
-                    <tr>
-                        <th>{{ __('Serial Number') }}</th>
-                        <th>{{ __('Asset Tag') }}</th>
-                        <th>{{ __('Detail Item Description') }}</th>
-                        <th>{{ __('Assigned To') }}</th>
-                        <th>{{ __('Action') }}</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    @foreach($assets as $index => $asset)
+                <div class="mt-8 mb-8">
+                    <div class="mt-8 mb-8">
+                        <hr>
+                    </div>
+                    <!-- IT Asset Details -->
+                    <h4 class="text-lg font-bold mt-4 mb-4">{{ __('IT Asset Details') }}</h4>
+                    <table class="w-full table-auto bg-white shadow-md rounded-lg border-collapse mt-4">
+
+                        <thead class="bg-gray-50">
                         <tr>
-                            <input type="hidden" wire:model="assets.{{ $index }}.id">
-
-                            {{--                            <td>--}}
-                            {{--                                <input type="text" wire:model="assets.{{ $index }}.serial_number"--}}
-                            {{--                                       class="form-control" required placeholder="{{ __('Enter Serial Number') }}">--}}
-                            {{--                            </td>--}}
-                            {{--                            <td>--}}
-                            {{--                                <input type="text" wire:model="assets.{{ $index }}.asset_tag"--}}
-                            {{--                                       class="form-control" required placeholder="{{ __('Enter Asset Tag') }}">--}}
-                            {{--                            </td>--}}
-
-                            <!-- Serial Number Input with Suggestions -->
-                            <td>
-                                <input type="text" wire:model="assets.{{ $index }}.serial_number"
-                                       class="form-control" required placeholder="{{ __('Enter Serial Number') }}">
-
-                                <!-- Display serial number suggestions -->
-                                @if(!empty($serialNumberSuggestions[$index]))
-                                    <ul class="list-group">
-                                        @foreach($serialNumberSuggestions[$index] as $suggestion)
-                                            <li class="list-group-item"
-                                                wire:click="selectSerialNumber({{ $index }}, '{{ $suggestion }}')">
-                                                {{ $suggestion }}
-                                            </li>
-                                        @endforeach
-                                    </ul>
-                                @endif
-                            </td>
-
-                            <!-- Asset Tag Input with Suggestions -->
-                            <td>
-                                <input type="text" wire:model="assets.{{ $index }}.asset_tag"
-                                       class="form-control" required placeholder="{{ __('Enter Asset Tag') }}">
-
-                                <!-- Display asset tag suggestions -->
-                                @if(!empty($assetTagSuggestions[$index]))
-                                    <ul class="list-group">
-                                        @foreach($assetTagSuggestions[$index] as $suggestion)
-                                            <li class="list-group-item"
-                                                wire:click="selectAssetTag({{ $index }}, '{{ $suggestion }}')">
-                                                {{ $suggestion }}
-                                            </li>
-                                        @endforeach
-                                    </ul>
-                                @endif
-                            </td>
-                            <td>
-                                <input type="text" wire:model="assets.{{ $index }}.item_description"
-                                       class="form-control" required placeholder="{{ __('Enter Item Description') }}">
-                            </td>
-                            <td>
-                                <input type="text" wire:model="assets.{{ $index }}.assigned_to"
-                                       class="form-control" required placeholder="{{ __('Enter Assigned Person') }}">
-                            </td>
-                            <td>
-                                <button type="button" wire:click="removeAsset({{ $index }})"
-                                        class="btn btn-danger">{{ __('Remove') }}</button>
-                            </td>
+                            <th class="px-4 py-2 border border-gray-300">{{ __('Serial Number') }}</th>
+                            <th class="px-4 py-2 border border-gray-300">{{ __('Asset Tag') }}</th>
+                            <th class="px-4 py-2 border border-gray-300">{{ __('Detail Item Description') }}</th>
+                            <th class="px-4 py-2 border border-gray-300">{{ __('Assigned To') }}</th>
+                            <th class="px-4 py-2 border border-gray-300">{{ __('Action') }}</th>
                         </tr>
-                    @endforeach
-                    </tbody>
-                </table>
-                <button type="button" wire:click="addAsset" class="btn btn-secondary">{{ __('Add Asset') }}</button>
+                        </thead>
+                        <tbody>
+                        @foreach($assets as $index => $asset)
+                            <tr>
+                                <input type="hidden" wire:model="assets.{{ $index }}.id">
 
-                <div class="mt-3">
-                    <button type="submit" class="btn btn-primary">{{ __('Save') }}</button>
+                                <!-- Serial Number Input with Suggestions -->
+                                <td class="px-4 py-2 border border-gray-300">
+                                    <input type="text" wire:model="assets.{{ $index }}.serial_number"
+                                           class="block w-full border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
+                                           required placeholder="{{ __('Enter Serial Number') }}">
+                                    @if(!empty($serialNumberSuggestions[$index]))
+                                        <ul class="bg-white shadow-lg max-h-40 overflow-y-auto rounded-md mt-1">
+                                            @foreach($serialNumberSuggestions[$index] as $suggestion)
+                                                <li class="px-4 py-2 cursor-pointer hover:bg-gray-200"
+                                                    wire:click="selectSerialNumber({{ $index }}, '{{ $suggestion }}')">
+                                                    {{ $suggestion }}
+                                                </li>
+                                            @endforeach
+                                        </ul>
+                                    @endif
+                                </td>
+
+                                <!-- Asset Tag Input with Suggestions -->
+                                <td class="px-4 py-2 border border-gray-300">
+                                    <input type="text" wire:model="assets.{{ $index }}.asset_tag"
+                                           class="block w-full border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
+                                           required placeholder="{{ __('Enter Asset Tag') }}">
+                                    @if(!empty($assetTagSuggestions[$index]))
+                                        <ul class="bg-white shadow-lg max-h-40 overflow-y-auto rounded-md mt-1">
+                                            @foreach($assetTagSuggestions[$index] as $suggestion)
+                                                <li class="px-4 py-2 cursor-pointer hover:bg-gray-200"
+                                                    wire:click="selectAssetTag({{ $index }}, '{{ $suggestion }}')">
+                                                    {{ $suggestion }}
+                                                </li>
+                                            @endforeach
+                                        </ul>
+                                    @endif
+                                </td>
+
+                                <!-- Item Description -->
+                                <td class="px-4 py-2 border border-gray-300">
+                                    <input type="text" wire:model="assets.{{ $index }}.item_description"
+                                           class="block w-full border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
+                                           required placeholder="{{ __('Enter Item Description') }}">
+                                </td>
+
+                                <!-- Assigned To -->
+                                <td class="px-4 py-2 border border-gray-300">
+                                    <input type="text" wire:model="assets.{{ $index }}.assigned_to"
+                                           class="block w-full border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
+                                           required placeholder="{{ __('Enter Assigned Person') }}">
+                                </td>
+
+                                <!-- Remove Button -->
+                                <td class="px-4 py-2 border border-gray-300">
+                                    <button type="button" wire:click="removeAsset({{ $index }})"
+                                            class="bg-red-500 text-white px-4 py-2 rounded-md hover:bg-red-600 w-full">{{ __('Remove') }}</button>
+                                </td>
+                            </tr>
+                        @endforeach
+                        </tbody>
+                    </table>
+
+                    <!-- Add Asset Button -->
+                    <div class="mt-4 flex justify-end">
+                        <button type="button" wire:click="addAsset"
+                                class="bg-gray-500 text-white text-sm px-3 py-1 rounded-md hover:bg-gray-600">
+                            {{ __('Add Asset') }}
+                        </button>
+                    </div>
+
+                    <div class="mt-8 mb-8">
+                        <hr>
+                    </div>
+                </div>
+
+
+                <!-- Save Button -->
+                <div class="mt-6 flex justify-end">
+                    <button type="submit"
+                            class="bg-blue-500 text-white px-6 py-2 rounded-md hover:bg-blue-600">{{ __('Save') }}</button>
                 </div>
             </form>
         </div>
