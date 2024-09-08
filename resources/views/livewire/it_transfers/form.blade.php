@@ -5,105 +5,102 @@
         </div>
         <div class="px-4 py-6">
             <form wire:submit.prevent="save">
-                <h4 class="text-lg font-bold mb-2">{{ __('From') }}</h4>
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
-                    <div>
-                        <label for="from_admin_name"
-                               class="block text-sm font-medium text-gray-700">{{ __('Admin Name') }}</label>
-                        <input type="text" wire:model="form.from_admin_name"
-                               class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
-                               required>
-                    </div>
-                    <div>
-                        <label for="from_admin_mail_id"
-                               class="block text-sm font-medium text-gray-700">{{ __('Admin Mail ID') }}</label>
-                        <input type="email" wire:model="form.from_admin_mail_id"
-                               class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
-                               required>
-                    </div>
-                    <div>
-                        <label for="from_signature"
-                               class="block text-sm font-medium text-gray-700">{{ __('Signature') }}</label>
-                        <div id="from_signature_pad" class="signature-pad border border-gray-300 h-20"></div>
-                        <input type="hidden" wire:model="form.from_signature" id="from_signature">
-                    </div>
-                    <div>
-                        <label for="from_site_in_charge_name"
-                               class="block text-sm font-medium text-gray-700">{{ __('Site in Charge Name') }}</label>
-                        <input type="text" wire:model="form.from_site_in_charge_name"
-                               class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
-                               required>
-                    </div>
-                    <div>
-                        <label for="from_site_in_charge_signature"
-                               class="block text-sm font-medium text-gray-700">{{ __('Signature') }}</label>
-                        <input type="hidden" wire:model="form.from_site_in_charge_signature"
-                               id="from_site_in_charge_signature">
+
+                <!-- Box for "From" Section -->
+                <div class="border border-gray-300 p-4 rounded-lg mb-6">
+                    <h4 class="text-lg font-bold mb-4">{{ __('From') }}</h4>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div>
+                            <label for="from_admin_name"
+                                   class="block text-sm font-medium text-gray-700">{{ __('Admin Name') }}</label>
+                            <input type="text" wire:model="form.from_admin_name"
+                                   class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
+                                   required>
+                        </div>
+                        <div>
+                            <label for="from_admin_mail_id"
+                                   class="block text-sm font-medium text-gray-700">{{ __('Admin Mail ID') }}</label>
+                            <input type="email" wire:model="form.from_admin_mail_id"
+                                   class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
+                                   required>
+                        </div>
+                        <div class="relative">
+                            <label for="from_signature"
+                                   class="block text-sm font-medium text-gray-700">{{ __('Signature') }}</label>
+                            <canvas id="from_signature_canvas" class="border border-gray-300 rounded-md"></canvas>
+                            <input type="hidden" wire:model="form.from_signature" id="from_signature">
+                            <!-- Floating Reset Button -->
+                            <button type="button" onclick="clearSignaturePad('from_signature_canvas', 'from_signature')"
+                                    class="absolute bottom-1 right-1 bg-red-500 text-white px-2 py-1 rounded-md text-xs">
+                                {{ __('Reset') }}
+                            </button>
+                        </div>
                     </div>
                 </div>
 
-                <h4 class="text-lg font-bold mb-2">{{ __('To') }}</h4>
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
-                    <div>
-                        <label for="to_admin_name"
-                               class="block text-sm font-medium text-gray-700">{{ __('Admin Name') }}</label>
-                        <input type="text" wire:model="form.to_admin_name"
-                               class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
-                               required>
-                    </div>
-                    <div>
-                        <label for="to_admin_mail_id"
-                               class="block text-sm font-medium text-gray-700">{{ __('Admin Mail ID') }}</label>
-                        <input type="email" wire:model="form.to_admin_mail_id"
-                               class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
-                               required>
-                    </div>
-                    <div>
-                        <label for="to_signature"
-                               class="block text-sm font-medium text-gray-700">{{ __('Signature') }}</label>
-                        <div id="to_signature_pad" class="signature-pad border border-gray-300 h-20"></div>
-                        <input type="hidden" wire:model="form.to_signature" id="to_signature">
-                    </div>
-                    <div>
-                        <label for="to_site_in_charge_name"
-                               class="block text-sm font-medium text-gray-700">{{ __('Site in Charge Name') }}</label>
-                        <input type="text" wire:model="form.to_site_in_charge_name"
-                               class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
-                               required>
-                    </div>
-                    <div>
-                        <label for="to_site_in_charge_signature"
-                               class="block text-sm font-medium text-gray-700">{{ __('Signature') }}</label>
-                        <input type="hidden" wire:model="form.to_site_in_charge_signature"
-                               id="to_site_in_charge_signature">
+                <!-- Box for "To" Section -->
+                <div class="border border-gray-300 p-4 rounded-lg mb-6">
+                    <h4 class="text-lg font-bold mb-4">{{ __('To') }}</h4>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div>
+                            <label for="to_admin_name"
+                                   class="block text-sm font-medium text-gray-700">{{ __('Admin Name') }}</label>
+                            <input type="text" wire:model="form.to_admin_name"
+                                   class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
+                                   required>
+                        </div>
+                        <div>
+                            <label for="to_admin_mail_id"
+                                   class="block text-sm font-medium text-gray-700">{{ __('Admin Mail ID') }}</label>
+                            <input type="email" wire:model="form.to_admin_mail_id"
+                                   class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
+                                   required>
+                        </div>
+                        <div class="relative">
+                            <label for="to_signature"
+                                   class="block text-sm font-medium text-gray-700">{{ __('Signature') }}</label>
+                            <canvas id="to_signature_canvas" class="border border-gray-300 rounded-md"></canvas>
+                            <input type="hidden" wire:model="form.to_signature" id="to_signature">
+                            <!-- Floating Reset Button -->
+                            <button type="button" onclick="clearSignaturePad('to_signature_canvas', 'to_signature')"
+                                    class="absolute bottom-1 right-1 bg-red-500 text-white px-2 py-1 rounded-md text-xs">
+                                {{ __('Reset') }}
+                            </button>
+                        </div>
                     </div>
                 </div>
 
-                <h4 class="text-lg font-bold mb-2">{{ __('Approved By IT Department') }}</h4>
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
-                    <div>
-                        <label for="approved_by_name"
-                               class="block text-sm font-medium text-gray-700">{{ __('Admin Name') }}</label>
-                        <input type="text" wire:model="form.approved_by_name"
-                               class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
-                               required>
-                    </div>
-                    <div>
-                        <label for="approved_by_signature"
-                               class="block text-sm font-medium text-gray-700">{{ __('Signature') }}</label>
-                        <div id="approved_by_signature" class="signature-pad border border-gray-300 h-20"></div>
-                        <input type="hidden" wire:model="form.approved_by_signature" id="approved_by_signature">
+                <!-- Box for "Approved By IT" Section -->
+                <div class="border border-gray-300 p-4 rounded-lg mb-6">
+                    <h4 class="text-lg font-bold mb-4">{{ __('Approved By IT Department') }}</h4>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div>
+                            <label for="approved_by_name"
+                                   class="block text-sm font-medium text-gray-700">{{ __('Admin Name') }}</label>
+                            <input type="text" wire:model="form.approved_by_name"
+                                   class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
+                                   required>
+                        </div>
+                        <div class="relative">
+                            <label for="approved_by_signature"
+                                   class="block text-sm font-medium text-gray-700">{{ __('Signature') }}</label>
+                            <canvas id="approved_by_signature_canvas"
+                                    class="border border-gray-300 rounded-md"></canvas>
+                            <input type="hidden" wire:model="form.approved_by_signature" id="approved_by_signature">
+                            <!-- Floating Reset Button -->
+                            <button type="button"
+                                    onclick="clearSignaturePad('approved_by_signature_canvas', 'approved_by_signature')"
+                                    class="absolute bottom-1 right-1 bg-red-500 text-white px-2 py-1 rounded-md text-xs">
+                                {{ __('Reset') }}
+                            </button>
+                        </div>
                     </div>
                 </div>
 
-                <div class="mt-8 mb-8">
-                    <div class="mt-8 mb-8">
-                        <hr>
-                    </div>
-                    <!-- IT Asset Details -->
-                    <h4 class="text-lg font-bold mt-4 mb-4">{{ __('IT Asset Details') }}</h4>
+                <!-- Box for "IT Asset Details" Section -->
+                <div class="border border-gray-300 p-4 rounded-lg">
+                    <h4 class="text-lg font-bold mb-4">{{ __('IT Asset Details') }}</h4>
                     <table class="w-full table-auto bg-white shadow-md rounded-lg border-collapse mt-4">
-
                         <thead class="bg-gray-50">
                         <tr>
                             <th class="px-4 py-2 border border-gray-300">{{ __('Serial Number') }}</th>
@@ -123,16 +120,6 @@
                                     <input type="text" wire:model="assets.{{ $index }}.serial_number"
                                            class="block w-full border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
                                            required placeholder="{{ __('Enter Serial Number') }}">
-                                    @if(!empty($serialNumberSuggestions[$index]))
-                                        <ul class="bg-white shadow-lg max-h-40 overflow-y-auto rounded-md mt-1">
-                                            @foreach($serialNumberSuggestions[$index] as $suggestion)
-                                                <li class="px-4 py-2 cursor-pointer hover:bg-gray-200"
-                                                    wire:click="selectSerialNumber({{ $index }}, '{{ $suggestion }}')">
-                                                    {{ $suggestion }}
-                                                </li>
-                                            @endforeach
-                                        </ul>
-                                    @endif
                                 </td>
 
                                 <!-- Asset Tag Input with Suggestions -->
@@ -140,16 +127,6 @@
                                     <input type="text" wire:model="assets.{{ $index }}.asset_tag"
                                            class="block w-full border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
                                            required placeholder="{{ __('Enter Asset Tag') }}">
-                                    @if(!empty($assetTagSuggestions[$index]))
-                                        <ul class="bg-white shadow-lg max-h-40 overflow-y-auto rounded-md mt-1">
-                                            @foreach($assetTagSuggestions[$index] as $suggestion)
-                                                <li class="px-4 py-2 cursor-pointer hover:bg-gray-200"
-                                                    wire:click="selectAssetTag({{ $index }}, '{{ $suggestion }}')">
-                                                    {{ $suggestion }}
-                                                </li>
-                                            @endforeach
-                                        </ul>
-                                    @endif
                                 </td>
 
                                 <!-- Item Description -->
@@ -187,10 +164,6 @@
                             {{ __('Add Asset') }}
                         </button>
                     </div>
-
-                    <div class="mt-8 mb-8">
-                        <hr>
-                    </div>
                 </div>
 
                 <!-- Save Button without Parent Opacity -->
@@ -210,111 +183,76 @@
 
 
 @push('styles')
-    <style>
-        .signature-pad {
-            position: relative;
-            display: -webkit-box;
-            display: -ms-flexbox;
-            display: flex;
-            -webkit-box-orient: vertical;
-            -webkit-box-direction: normal;
-            -ms-flex-direction: column;
-            flex-direction: column;
-            font-size: 10px;
-            width: 100%;
-            height: 100%;
-            max-width: 700px;
-            max-height: 460px;
-            border: 1px solid #e8e8e8;
-            background-color: #fff;
-            box-shadow: 0 1px 4px rgba(0, 0, 0, 0.27), 0 0 40px rgba(0, 0, 0, 0.08) inset;
-            border-radius: 4px;
-            /*padding: 16px;*/
-        }
-    </style>
+    {{--    <style>--}}
+    {{--        .signature-pad {--}}
+    {{--            position: relative;--}}
+    {{--            display: -webkit-box;--}}
+    {{--            display: -ms-flexbox;--}}
+    {{--            display: flex;--}}
+    {{--            -webkit-box-orient: vertical;--}}
+    {{--            -webkit-box-direction: normal;--}}
+    {{--            -ms-flex-direction: column;--}}
+    {{--            flex-direction: column;--}}
+    {{--            font-size: 10px;--}}
+    {{--            width: 100%;--}}
+    {{--            height: 100%;--}}
+    {{--            max-width: 700px;--}}
+    {{--            max-height: 460px;--}}
+    {{--            border: 1px solid #e8e8e8;--}}
+    {{--            background-color: #fff;--}}
+    {{--            box-shadow: 0 1px 4px rgba(0, 0, 0, 0.27), 0 0 40px rgba(0, 0, 0, 0.08) inset;--}}
+    {{--            border-radius: 4px;--}}
+    {{--            /*padding: 16px;*/--}}
+    {{--        }--}}
+    {{--    </style>--}}
 @endpush
-
 @push('scripts')
-    <!-- Include Signature Pad JavaScript -->
     <script src="https://cdn.jsdelivr.net/npm/signature_pad@4.1.7/dist/signature_pad.umd.min.js"></script>
 
     <script>
-        // document.addEventListener('livewire:load', function () {
         document.addEventListener('DOMContentLoaded', function () {
-            const wrapper = document.getElementById("signature-pad");
-            let undoData = [];
-            const canvas = wrapper.querySelector("canvas");
-            const signaturePad = new SignaturePad(canvas, {
-                // It's Necessary to use an opaque color when saving image as JPEG;
-                // this option can be omitted if only saving as PNG or SVG
-                backgroundColor: 'rgb(255, 255, 255)'
-            });
+            // Initialize signature pads
+            const fromSignaturePad = new SignaturePad(document.getElementById('from_signature_canvas'));
+            const toSignaturePad = new SignaturePad(document.getElementById('to_signature_canvas'));
+            const approvedBySignaturePad = new SignaturePad(document.getElementById('approved_by_signature_canvas'));
 
-
-// Adjust canvas coordinate space taking into account pixel ratio,
-// to make it look crisp on mobile devices.
-// This also causes canvas to be cleared.
-            function resizeCanvas() {
-                // When zoomed out to less than 100%, for some very strange reason,
-                // some browsers report devicePixelRatio as less than 1
-                // and only part of the canvas is cleared then.
-                const ratio = Math.max(window.devicePixelRatio || 1, 1);
-
-                // This part causes the canvas to be cleared
-                canvas.width = canvas.offsetWidth * ratio;
-                canvas.height = canvas.offsetHeight * ratio;
-                canvas.getContext("2d").scale(ratio, ratio);
-
-                // This library does not listen for canvas changes, so after the canvas is automatically
-                // cleared by the browser, SignaturePad#isEmpty might still return false, even though the
-                // canvas looks empty, because the internal data of this library wasn't cleared. To make sure
-                // that the state of this library is consistent with visual state of the canvas, you
-                // have to clear it manually.
-                //signaturePad.clear();
-
-                // If you want to keep the drawing on resize instead of clearing it you can reset the data.
-                signaturePad.fromData(signaturePad.toData());
+            // Function to set canvas size properly (small)
+            function resizeCanvas(canvas) {
+                canvas.width = 300;  // Adjust width here (300px)
+                canvas.height = 100; // Adjust height here (100px)
+                const ctx = canvas.getContext("2d");
+                ctx.scale(1, 1);
             }
 
-// On mobile devices it might make more sense to listen to orientation change,
-// rather than window resize events.
-            window.onresize = resizeCanvas;
-            resizeCanvas();
+            // Resize canvases for all signature pads
+            resizeCanvas(document.getElementById('from_signature_canvas'));
+            resizeCanvas(document.getElementById('to_signature_canvas'));
+            resizeCanvas(document.getElementById('approved_by_signature_canvas'));
 
-            // window.addEventListener("keydown", (event) => {
-            //     switch (true) {
-            //         case event.key === "z" && event.ctrlKey:
-            //             undoButton.click();
-            //             break;
-            //         case event.key === "y" && event.ctrlKey:
-            //             redoButton.click();
-            //             break;
-            //     }
-            // });
-
-
-// One could simply use Canvas#toBlob method instead, but it's just to show
-// that it can be done using result of SignaturePad#toDataURL.
-            function dataURLToBlob(dataURL) {
-                // Code taken from https://github.com/ebidel/filer.js
-                const parts = dataURL.split(';base64,');
-                const contentType = parts[0].split(":")[1];
-                const raw = window.atob(parts[1]);
-                const rawLength = raw.length;
-                const uInt8Array = new Uint8Array(rawLength);
-
-                for (let i = 0; i < rawLength; ++i) {
-                    uInt8Array[i] = raw.charCodeAt(i);
-                }
-
-                return new Blob([uInt8Array], {type: contentType});
+            // Load existing signatures from DB if available
+            if (@json($form['from_signature'])) {
+                fromSignaturePad.fromDataURL(@json($form['from_signature']));
+            }
+            if (@json($form['to_signature'])) {
+                toSignaturePad.fromDataURL(@json($form['to_signature']));
+            }
+            if (@json($form['approved_by_signature'])) {
+                approvedBySignaturePad.fromDataURL(@json($form['approved_by_signature']));
             }
 
-            signaturePad.addEventListener("endStroke", () => {
-                // clear undoData when new data is added
-                undoData = [];
+            // Save signatures when submitting form
+            document.querySelector('form').addEventListener('submit', function () {
+                document.getElementById('from_signature').value = fromSignaturePad.toDataURL();
+                document.getElementById('to_signature').value = toSignaturePad.toDataURL();
+                document.getElementById('approved_by_signature').value = approvedBySignaturePad.toDataURL();
             });
+
+            // Function to clear signature pad and reset hidden input
+            window.clearSignaturePad = function (canvasId, inputId) {
+                const signaturePad = new SignaturePad(document.getElementById(canvasId));
+                signaturePad.clear();
+                document.getElementById(inputId).value = ''; // Clear the hidden input as well
+            }
         });
     </script>
 @endpush
-

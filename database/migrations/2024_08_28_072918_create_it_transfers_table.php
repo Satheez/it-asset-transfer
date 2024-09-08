@@ -12,26 +12,34 @@ return new class extends Migration {
     {
         Schema::create('it_transfers', function (Blueprint $table) {
             $table->id();
+            $table->uuid()->unique();
+
             $table->string('from_admin_name');
             $table->string('from_admin_mail_id');
-            $table->text('from_signature')->nullable(); // Store Base64 signature
+            $table->longText('from_signature')->nullable(); // Store Base64 signature
 
             $table->string('from_site_in_charge_name');
-            $table->text('from_site_in_charge_signature')->nullable(); // Store Base64 signature
+            $table->longText('from_site_in_charge_signature')->nullable(); // Store Base64 signature
 
             $table->string('to_admin_name');
             $table->string('to_admin_mail_id');
-            $table->text('to_signature')->nullable(); // Store Base64 signature
+            $table->longText('to_signature')->nullable(); // Store Base64 signature
             $table->string('to_site_in_charge_name');
 
             $table->string('approved_by_name');
-            $table->text('approved_by_signature')->nullable(); // Store Base64 signature
+            $table->longText('approved_by_signature')->nullable(); // Store Base64 signature
 
             $table->string('reviewed_by')->nullable();
-            $table->timestamp('review_date')->nullable();
+            $table->dateTime('review_date')->nullable();
+
+            $table->unsignedBigInteger('created_by')->nullable();
+            $table->unsignedBigInteger('updated_by')->nullable();
 
             $table->softDeletes();
             $table->timestamps();
+
+            $table->foreign('created_by')->references('id')->on('users')->onDelete('set null');
+            $table->foreign('updated_by')->references('id')->on('users')->onDelete('set null');
         });
     }
 

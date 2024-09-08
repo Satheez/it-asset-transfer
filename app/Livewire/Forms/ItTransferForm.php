@@ -15,18 +15,13 @@ class ItTransferForm extends Component
     public $formId;
 
     public array $form = [];
-//    public array $assets = [];
+    public array $assets = [];
     public $newAsset = [
         'serial_number' => '',
         'asset_tag' => '',
         'item_description' => '',
         'assigned_to' => '',
     ];
-
-     public $assets = [
-        ['serial_number' => '', 'asset_tag' => '']
-    ];
-
 
     public $signatureFields = [
         'from_signature',
@@ -67,10 +62,21 @@ class ItTransferForm extends Component
             $this->form = [
                 'from_admin_name' => '',
                 'from_admin_mail_id' => '',
+                'from_signature' => '',
+
+                'from_site_in_charge_name' => '',
+                'from_site_in_charge_signature' => '',
+
                 'to_admin_name' => '',
                 'to_admin_mail_id' => '',
+                'to_signature' => '',
+                'to_site_in_charge_name' => '',
+
                 'approved_by_name' => '',
-                // Initialize other fields if necessary
+                'approved_by_signature' => '',
+
+                'reviewed_by' => '',
+                'review_date' => '',
             ];
 
             $this->assets[] = $this->newAsset;
@@ -102,6 +108,8 @@ class ItTransferForm extends Component
     {
         $this->validate();
 
+        $this->form['review_date'] = !empty($this->form['review_date'] ?? null) ? $this->form['review_date'] : null;
+
         if ($this->formId) {
             $formModel = ItTransfer::findOrFail($this->formId);
             $formModel->update($this->form);  // Sync array back to the model
@@ -116,8 +124,8 @@ class ItTransferForm extends Component
         foreach ($this->assets as $asset) {
             if (isset($asset['id'])) {
                 // Update existing asset
-                $formModel->itAssets()->where('id', $asset['id'])->update($asset);
-                $newAssetIds[] = $asset['id'];
+//                $formModel->itAssets()->where('id', $asset['id'])->update($asset);
+//                $newAssetIds[] = $asset['id'];
             } else {
                 // Create new asset
                 $newAsset = $formModel->itAssets()->create($asset);
