@@ -168,8 +168,12 @@
 
                                 <!-- Remove Button -->
                                 <td class="px-4 py-2 border border-gray-300">
-                                    <button type="button" wire:click="removeAsset({{ $index }})"
-                                            class="bg-red-500 text-white px-4 py-2 rounded-md hover:bg-red-600 w-full">{{ __('Remove') }}</button>
+                                    <div style="display: flex; justify-content: center;">
+                                        <button type="button" wire:click="removeAsset({{ $index }})"
+                                                style="background-color: #EF4444 !important; color: white !important; font-size: 0.875rem; padding: 0.25rem 0.75rem; border-radius: 0.375rem; border: none;">
+                                            {{ __('Remove') }}
+                                        </button>
+                                    </div>
                                 </td>
                             </tr>
                         @endforeach
@@ -189,12 +193,16 @@
                     </div>
                 </div>
 
-
-                <!-- Save Button -->
+                <!-- Save Button without Parent Opacity -->
                 <div class="mt-6 flex justify-end">
                     <button type="submit"
-                            class="bg-blue-500 text-white px-6 py-2 rounded-md hover:bg-blue-600">{{ __('Save') }}</button>
+                            class="bg-blue-700 text-white px-6 py-2 rounded-md hover:bg-blue-800 dark:bg-blue-500 dark:hover:bg-blue-600"
+                            style="background-color: #1D4ED8 !important;">
+                        {{ __('Save') }}
+                    </button>
                 </div>
+
+
             </form>
         </div>
     </div>
