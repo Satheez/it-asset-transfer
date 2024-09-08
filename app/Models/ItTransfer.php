@@ -2,19 +2,20 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
-class FormDetail extends Model
+class ItTransfer extends Model
 {
     use HasFactory;
 
     protected $fillable = [
-        'from_admin_name',
-        'from_admin_mail_id',
-        'from_signature',
-        'from_site_in_charge_name',
-        'from_site_in_charge_signature',
+        'admin_name',
+        'admin_mail_id',
+        'signature',
+        'site_in_charge_name',
+        'site_in_charge_signature',
         'to_admin_name',
         'to_admin_mail_id',
         'to_signature',
@@ -26,8 +27,8 @@ class FormDetail extends Model
         'review_date',
     ];
 
-    public function itAssets()
+    public function itAssets(): HasMany
     {
-        return $this->hasMany(ItAssetDetail::class, 'form_id');
+        return $this->hasMany(ItTransferAsset::class, 'it_transfer_id');
     }
 }

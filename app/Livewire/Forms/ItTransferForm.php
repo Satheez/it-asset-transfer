@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Livewire;
+namespace App\Livewire\Forms;
 
 use Livewire\Component;
-use App\Models\FormDetail;
-use App\Models\ItAssetDetail;
+use App\Models\ItTransfer;
 use Livewire\WithFileUploads;
+use App\Events\ItTransferRecordCreated;
 
-class FormDetails extends Component
+class ItTransferForm extends Component
 {
     use WithFileUploads;
 
@@ -45,7 +45,7 @@ class FormDetails extends Component
     public function mount($formId = null)
     {
         if ($formId) {
-            $formModel = FormDetail::findOrFail($formId);
+            $formModel = ItTransfer::findOrFail($formId);
             $this->form = $formModel->toArray();  // Convert model to array for Livewire binding
             $this->formId = $formId;
             $this->assets = $formModel->itAssets->toArray();
@@ -66,10 +66,10 @@ class FormDetails extends Component
     public function index()
     {
         // Fetch paginated FormDetail records
-        $formDetails = FormDetail::paginate(10); // Adjust pagination limit as needed
+        $formDetails = ItTransfer::paginate(10); // Adjust pagination limit as needed
 
         // Return view with the paginated records
-        return view('livewire.form-index', ['formDetails' => $formDetails])
+        return view('livewire.transfer-pages.form-index', ['formDetails' => $formDetails])
             ->layout('layouts.app'); // Using Breeze layout
     }
 
@@ -84,44 +84,15 @@ class FormDetails extends Component
         ];
     }
 
-//    public function save()
-//    {
-//        $this->validate();
-//
-//        if ($this->formId) {
-//            $formModel = FormDetail::findOrFail($this->formId);
-//            $formModel->update($this->form);  // Sync array back to the model
-//        } else {
-//            $formModel = FormDetail::create($this->form);  // Create new model with array data
-//        }
-//
-//        // Sync assets with the form
-//        $formModel->itAssets()->delete();  // Clear old assets
-//        foreach ($this->assets as $asset) {
-//            $formModel->itAssets()->create($asset);
-//        }
-//
-//        // Handle signatures
-//        foreach ($this->signatureFields as $field) {
-//            if (isset($this->form[$field]) && is_string($this->form[$field])) {
-//                $formModel->$field = $this->saveSignature($this->form[$field], $field);
-//            }
-//        }
-//
-//        $formModel->save();
-//
-//        return redirect()->route('forms.index');
-//    }
-
     public function save()
     {
         $this->validate();
 
         if ($this->formId) {
-            $formModel = FormDetail::findOrFail($this->formId);
+            $formModel = ItTransfer::findOrFail($this->formId);
             $formModel->update($this->form);  // Sync array back to the model
         } else {
-            $formModel = FormDetail::create($this->form);  // Create new model with array data
+            $formModel = ItTransfer::create($this->form);  // Create new model with array data
         }
 
         // Handle existing assets
@@ -153,7 +124,12 @@ class FormDetails extends Component
 
         $formModel->save();
 
-        return redirect()->route('forms.index');
+        if (!$this->formId) {
+            // Fire the ItTransferRecordCreated event
+            event(new ItTransferRecordCreated($this->form));
+        }
+
+        return redirect()->route('it-transfer.index');
     }
 
     private function saveSignature($signatureData, $fieldName)
@@ -167,7 +143,7 @@ class FormDetails extends Component
 
     public function render()
     {
-        return view('livewire.form-details') ->layout('layouts.app'); // Use Breeze's app.blade.php layout;
+        return view('livewire.transfer-pages.form-details')->layout('layouts.app'); // Use Breeze's app.blade.php layout;
     }
 
     public function removeAsset($index)

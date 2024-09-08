@@ -237,30 +237,6 @@
                 // clear undoData when new data is added
                 undoData = [];
             });
-
-            // clearButton.addEventListener("click", () => {
-            //     signaturePad.clear();
-            // });
-            //
-            // undoButton.addEventListener("click", () => {
-            //     const data = signaturePad.toData();
-            //
-            //     if (data && data.length > 0) {
-            //         // remove the last dot or line
-            //         const removed = data.pop();
-            //         undoData.push(removed);
-            //         signaturePad.fromData(data);
-            //     }
-            // });
-            //
-            // redoButton.addEventListener("click", () => {
-            //     if (undoData.length > 0) {
-            //         const data = signaturePad.toData();
-            //         data.push(undoData.pop());
-            //         signaturePad.fromData(data);
-            //     }
-            // });
-
         });
     </script>
 @endpush

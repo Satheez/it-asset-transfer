@@ -1,7 +1,7 @@
 <?php
 
-use App\Livewire\FormDetails;
 use Illuminate\Support\Facades\Route;
+use App\Livewire\Forms\ItTransferForm;
 
 Route::view('/', 'welcome');
 
@@ -15,10 +15,10 @@ Route::view('profile', 'profile')
 
 Route::middleware(['auth'])->group(function () {
 //    Route::get('/forms', FormDetails::class)->name('forms.index');
-    Route::get('/forms', [FormDetails::class, 'index'])->name('forms.index');
+    Route::get('/it-transfers', [ItTransferForm::class, 'index'])->name('it-transfers.index');
 
-    Route::get('/forms/create', FormDetails::class)->name('forms.create');
-    Route::get('/forms/{formId}/edit', FormDetails::class)->name('forms.edit');
+    Route::get('/it-transfers/create', ItTransferForm::class)->name('it-transfers.create');
+    Route::get('/it-transfers/{formId}/edit', ItTransferForm::class)->name('it-transfers.edit');
 });
 
 

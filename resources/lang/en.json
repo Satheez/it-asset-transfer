@@ -19,5 +19,14 @@
   "Enter Serial Number": "Enter Serial Number",
   "Enter Asset Tag": "Enter Asset Tag",
   "Enter Item Description": "Enter Item Description",
-  "Enter Assigned Person": "Enter Assigned Person"
+  "Enter Assigned Person": "Enter Assigned Person",
+  "New IT Asset Transfer Form Created": "New IT Asset Transfer Form Created",
+  "From Admin Name": "From Admin Name",
+  "To Admin Name": "To Admin Name",
+  "Approved By": "Approved By",
+  "A new IT Asset Transfer Form has been created. Below are the details of the transfer:": "A new IT Asset Transfer Form has been created. Below are the details of the transfer:",
+  "Please review the form for further details or take action as necessary.": "Please review the form for further details or take action as necessary.",
+  "View Forms": "View Forms",
+  "If you have any questions, feel free to contact us at :email.": "If you have any questions, feel free to contact us at :email.",
+  ":app_name Team": ":app_name Team"
 }
