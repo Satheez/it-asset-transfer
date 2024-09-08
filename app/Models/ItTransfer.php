@@ -11,18 +11,21 @@ class ItTransfer extends Model
     use HasFactory;
 
     protected $fillable = [
-        'admin_name',
-        'admin_mail_id',
-        'signature',
-        'site_in_charge_name',
-        'site_in_charge_signature',
+        'from_admin_name',
+        'from_admin_mail_id',
+        'from_signature', // Base64 signature
+        'from_site_in_charge_name',
+        'from_site_in_charge_signature', // Base64 signature
+
         'to_admin_name',
         'to_admin_mail_id',
-        'to_signature',
+        'to_signature', // Base64 signature
         'to_site_in_charge_name',
         'to_site_in_charge_signature',
+
         'approved_by_name',
-        'approved_by_signature',
+        'approved_by_signature', // Base64 signature
+
         'reviewed_by',
         'review_date',
     ];

@@ -22,7 +22,8 @@ class ItTransferForm extends Component
         'assigned_to' => '',
     ];
     public $signatureFields = [
-        'from_signature', 'to_signature',
+        'from_signature',
+        'to_signature',
         'from_site_in_charge_signature',
         'to_site_in_charge_signature',
         'approved_by_signature',
@@ -84,6 +85,54 @@ class ItTransferForm extends Component
         ];
     }
 
+//    public function save()
+//    {
+//        $this->validate();
+//
+//        if ($this->formId) {
+//            $formModel = ItTransfer::findOrFail($this->formId);
+//            $formModel->update($this->form);  // Sync array back to the model
+//        } else {
+//            $formModel = ItTransfer::create($this->form);  // Create new model with array data
+//        }
+//
+//        // Handle existing assets
+//        $existingAssetIds = $formModel->itAssets->pluck('id')->toArray();
+//        $newAssetIds = [];
+//
+//        foreach ($this->assets as $asset) {
+//            if (isset($asset['id'])) {
+//                // Update existing asset
+//                $formModel->itAssets()->where('id', $asset['id'])->update($asset);
+//                $newAssetIds[] = $asset['id'];
+//            } else {
+//                // Create new asset
+//                $newAsset = $formModel->itAssets()->create($asset);
+//                $newAssetIds[] = $newAsset->id;
+//            }
+//        }
+//
+//        // Delete removed assets
+//        $assetsToDelete = array_diff($existingAssetIds, $newAssetIds);
+//        $formModel->itAssets()->whereIn('id', $assetsToDelete)->delete();
+//
+//        // Handle signatures
+//        foreach ($this->signatureFields as $field) {
+//            if (isset($this->form[$field]) && is_string($this->form[$field])) {
+//                $formModel->$field = $this->saveSignature($this->form[$field], $field);
+//            }
+//        }
+//
+//        $formModel->save();
+//
+//        if (!$this->formId) {
+//            // Fire the ItTransferRecordCreated event
+//            event(new ItTransferRecordCreated($this->form));
+//        }
+//
+//        return redirect()->route('it-transfers.index');
+//    }
+
     public function save()
     {
         $this->validate();
@@ -115,10 +164,10 @@ class ItTransferForm extends Component
         $assetsToDelete = array_diff($existingAssetIds, $newAssetIds);
         $formModel->itAssets()->whereIn('id', $assetsToDelete)->delete();
 
-        // Handle signatures
+        // Handle signatures and directly store the Base64 strings
         foreach ($this->signatureFields as $field) {
             if (isset($this->form[$field]) && is_string($this->form[$field])) {
-                $formModel->$field = $this->saveSignature($this->form[$field], $field);
+                $formModel->$field = $this->form[$field]; // Store Base64 signature directly
             }
         }
 
@@ -129,7 +178,7 @@ class ItTransferForm extends Component
             event(new ItTransferRecordCreated($this->form));
         }
 
-        return redirect()->route('it-transfer.index');
+        return redirect()->route('it-transfers.index');
     }
 
     private function saveSignature($signatureData, $fieldName)
@@ -143,7 +192,7 @@ class ItTransferForm extends Component
 
     public function render()
     {
-        return view('livewire.it_transfers.it_transfer')->layout('layouts.app'); // Use Breeze's app.blade.php layout;
+        return view('livewire.it_transfers.form')->layout('layouts.app'); // Use Breeze's app.blade.php layout;
     }
 
     public function removeAsset($index)
