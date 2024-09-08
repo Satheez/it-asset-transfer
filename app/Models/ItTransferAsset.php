@@ -24,4 +24,9 @@ class ItTransferAsset extends Model
     {
         return $this->belongsTo(ItTransfer::class, 'it_transfer_id');
     }
+
+    public function getRouteKeyName()
+    {
+        return 'uuid';
+    }
 }

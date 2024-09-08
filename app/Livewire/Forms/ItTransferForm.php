@@ -2,12 +2,14 @@
 
 namespace App\Livewire\Forms;
 
+use Carbon\Carbon;
 use Livewire\Component;
 use App\Models\ItTransfer;
 use Livewire\WithFileUploads;
 use App\Models\AssetReference;
 use App\Events\ItTransferRecordCreated;
 
+ #[Layout('layouts.app')]
 class ItTransferForm extends Component
 {
     use WithFileUploads;
@@ -54,7 +56,8 @@ class ItTransferForm extends Component
     public function mount($formId = null): void
     {
         if ($formId) {
-            $formModel = ItTransfer::findOrFail($formId);
+            //$formModel = ItTransfer::findOrFail($formId);
+            $formModel = ItTransfer::whereUuid($formId)->firstOrFail();
             $this->form = $formModel->toArray();  // Convert model to array for Livewire binding
             $this->formId = $formId;
             $this->assets = $formModel->itAssets->toArray();
@@ -104,14 +107,34 @@ class ItTransferForm extends Component
         ];
     }
 
-    public function save()
+    public function save(): \Illuminate\Http\RedirectResponse|\Livewire\Features\SupportRedirects\Redirector
     {
         $this->validate();
 
-        $this->form['review_date'] = !empty($this->form['review_date'] ?? null) ? $this->form['review_date'] : null;
+        if (!empty($this->form['review_date'] ?? null)) {
+            $this->form['review_date'] = Carbon::parse($this->form['review_date'])->format('Y-m-d H:i:s');
+        } else {
+            $this->form['review_date'] = null;
+        }
+
+        // Ensure the signatures are captured and saved as base64
+        if ($this->form['from_signature']) {
+            $this->form['from_signature'] = $this->fromSignaturePad->toDataURL();
+        }
+
+        dd($this->form);
+
+        if ($this->form['to_signature']) {
+            $this->form['to_signature'] = $this->toSignaturePad->toDataURL();
+        }
+
+        if ($this->form['approved_by_signature']) {
+            $this->form['approved_by_signature'] = $this->approvedBySignaturePad->toDataURL();
+        }
 
         if ($this->formId) {
-            $formModel = ItTransfer::findOrFail($this->formId);
+            //$formModel = ItTransfer::findOrFail($this->formId);
+            $formModel = ItTransfer::whereUuid($this->formId)->firstOrFail();
             $formModel->update($this->form);  // Sync array back to the model
         } else {
             $formModel = ItTransfer::create($this->form);  // Create new model with array data
@@ -208,7 +231,6 @@ class ItTransferForm extends Component
         $this->assets[$index]['serial_number'] = $serialNumber;
         $this->serialNumberSuggestions[$index] = []; // Clear suggestions
     }
-
 
     public function selectAssetTag($index, string $assetTag): void
     {

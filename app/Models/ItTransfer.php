@@ -36,4 +36,9 @@ class ItTransfer extends Model
     {
         return $this->hasMany(ItTransferAsset::class, 'it_transfer_id');
     }
+
+    public function getRouteKeyName()
+    {
+        return 'uuid';
+    }
 }

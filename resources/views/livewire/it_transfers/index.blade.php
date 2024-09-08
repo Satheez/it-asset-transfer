@@ -33,7 +33,7 @@
                     <td class="border px-4 py-2">{{ $record->approved_by_name }}</td>
                     <td class="border px-4 py-2 text-center">
                         <!-- Edit button -->
-                        <a href="{{ route('it-transfers.edit', $record->id) }}"
+                        <a href="{{ route('it-transfers.edit', $record->uuid) }}"
                            class="bg-blue-700 text-white text-sm px-2 py-1 rounded-md hover:bg-blue-800 dark:bg-black dark:hover:bg-gray-800">
                             {{ __('Edit') }}
                         </a>

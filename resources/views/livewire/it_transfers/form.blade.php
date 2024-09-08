@@ -1,8 +1,10 @@
 <div class="container mx-auto mt-4">
     <div class="bg-white shadow-md rounded-lg">
+
         <div class="bg-gray-100 px-4 py-2 border-b border-gray-300">
             <h3 class="text-lg font-semibold">{{ $formId ? __('Edit IT Asset Transfer Form') : __('Create IT Asset Transfer Form') }}</h3>
         </div>
+
         <div class="px-4 py-6">
             <form wire:submit.prevent="save">
 
@@ -175,42 +177,17 @@
                     </button>
                 </div>
 
-
             </form>
         </div>
     </div>
 </div>
 
-
-@push('styles')
-    {{--    <style>--}}
-    {{--        .signature-pad {--}}
-    {{--            position: relative;--}}
-    {{--            display: -webkit-box;--}}
-    {{--            display: -ms-flexbox;--}}
-    {{--            display: flex;--}}
-    {{--            -webkit-box-orient: vertical;--}}
-    {{--            -webkit-box-direction: normal;--}}
-    {{--            -ms-flex-direction: column;--}}
-    {{--            flex-direction: column;--}}
-    {{--            font-size: 10px;--}}
-    {{--            width: 100%;--}}
-    {{--            height: 100%;--}}
-    {{--            max-width: 700px;--}}
-    {{--            max-height: 460px;--}}
-    {{--            border: 1px solid #e8e8e8;--}}
-    {{--            background-color: #fff;--}}
-    {{--            box-shadow: 0 1px 4px rgba(0, 0, 0, 0.27), 0 0 40px rgba(0, 0, 0, 0.08) inset;--}}
-    {{--            border-radius: 4px;--}}
-    {{--            /*padding: 16px;*/--}}
-    {{--        }--}}
-    {{--    </style>--}}
-@endpush
 @push('scripts')
     <script src="https://cdn.jsdelivr.net/npm/signature_pad@4.1.7/dist/signature_pad.umd.min.js"></script>
 
     <script>
         document.addEventListener('DOMContentLoaded', function () {
+
             // Initialize signature pads
             const fromSignaturePad = new SignaturePad(document.getElementById('from_signature_canvas'));
             const toSignaturePad = new SignaturePad(document.getElementById('to_signature_canvas'));
@@ -233,26 +210,39 @@
             if (@json($form['from_signature'])) {
                 fromSignaturePad.fromDataURL(@json($form['from_signature']));
             }
+
             if (@json($form['to_signature'])) {
                 toSignaturePad.fromDataURL(@json($form['to_signature']));
             }
+
             if (@json($form['approved_by_signature'])) {
                 approvedBySignaturePad.fromDataURL(@json($form['approved_by_signature']));
             }
 
-            // Save signatures when submitting form
+            // When the form is submitted, update the hidden input with the base64 signature
             document.querySelector('form').addEventListener('submit', function () {
                 document.getElementById('from_signature').value = fromSignaturePad.toDataURL();
                 document.getElementById('to_signature').value = toSignaturePad.toDataURL();
                 document.getElementById('approved_by_signature').value = approvedBySignaturePad.toDataURL();
             });
 
-            // Function to clear signature pad and reset hidden input
-            window.clearSignaturePad = function (canvasId, inputId) {
-                const signaturePad = new SignaturePad(document.getElementById(canvasId));
-                signaturePad.clear();
-                document.getElementById(inputId).value = ''; // Clear the hidden input as well
-            }
+            document.querySelector('form').addEventListener('submit', function () {
+                if (!fromSignaturePad.isEmpty()) {
+                    const signatureData = fromSignaturePad.toDataURL();
+                    console.log("Signature Data:", signatureData);  // Debug: Check if signature is captured
+                    document.getElementById('from_signature').value = signatureData;  // Save the signature
+                } else {
+                    console.log("Signature Pad is empty");
+                    document.getElementById('from_signature').value = '';
+                }
+            });
         });
+
+        // Function to clear the signature pad and reset the hidden input field
+        function clearSignaturePad(canvasId, inputId) {
+            const signaturePad = new SignaturePad(document.getElementById(canvasId));
+            signaturePad.clear();
+            document.getElementById(inputId).value = '';  // Clear the hidden input
+        }
     </script>
 @endpush
