@@ -9,7 +9,6 @@ use Livewire\WithFileUploads;
 use App\Models\AssetReference;
 use App\Events\ItTransferRecordCreated;
 
- #[Layout('layouts.app')]
 class ItTransferForm extends Component
 {
     use WithFileUploads;
@@ -92,8 +91,7 @@ class ItTransferForm extends Component
         $records = ItTransfer::paginate(10); // Adjust pagination limit as needed
 
         // Return view with the paginated records
-        return view('livewire.it_transfers.index', ['records' => $records])
-            ->layout('layouts.app'); // Using Breeze layout
+        return view('livewire.it_transfers.index', compact('records'))->layout('layouts.app');
     }
 
     public function addAsset()
@@ -118,9 +116,9 @@ class ItTransferForm extends Component
         }
 
         // Ensure the signatures are captured and saved as base64
-        if ($this->form['from_signature']) {
-            $this->form['from_signature'] = $this->fromSignaturePad->toDataURL();
-        }
+//        if ($this->form['from_signature']) {
+//            $this->form['from_signature'] = $this->fromSignaturePad->toDataURL();
+//        }
 
         dd($this->form);
 

@@ -186,21 +186,23 @@
     <script src="https://cdn.jsdelivr.net/npm/signature_pad@4.1.7/dist/signature_pad.umd.min.js"></script>
 
     <script>
-        document.addEventListener('DOMContentLoaded', function () {
+        const fromSignaturePad = new SignaturePad(document.getElementById('from_signature_canvas'));
+        const toSignaturePad = new SignaturePad(document.getElementById('to_signature_canvas'));
+        const approvedBySignaturePad = new SignaturePad(document.getElementById('approved_by_signature_canvas'));
 
-            // Initialize signature pads
-            const fromSignaturePad = new SignaturePad(document.getElementById('from_signature_canvas'));
-            const toSignaturePad = new SignaturePad(document.getElementById('to_signature_canvas'));
-            const approvedBySignaturePad = new SignaturePad(document.getElementById('approved_by_signature_canvas'));
+        document.querySelector('form').addEventListener('submit', function () {
+            const fromSignatureData = !fromSignaturePad.isEmpty() ? fromSignaturePad.toDataURL() : null;
+            @this.set('form.from_signature', fromSignatureData);
 
-            // Function to set canvas size properly (small)
-            function resizeCanvas(canvas) {
-                canvas.width = 300;  // Adjust width here (300px)
-                canvas.height = 100; // Adjust height here (100px)
-                const ctx = canvas.getContext("2d");
-                ctx.scale(1, 1);
-            }
+            const toSignatureData = !toSignaturePad.isEmpty() ? toSignaturePad.toDataURL() : null;
+            @this.set('form.to_signature', toSignatureData);
 
+            const approvedBySignatureData = !approvedBySignaturePad.isEmpty() ? approvedBySignaturePad.toDataURL() : null;
+            @this.set('form.approved_by_signature', approvedBySignatureData);
+        });
+
+
+        document.addEventListener('livewire:initialized', () => {
             // Resize canvases for all signature pads
             resizeCanvas(document.getElementById('from_signature_canvas'));
             resizeCanvas(document.getElementById('to_signature_canvas'));
@@ -218,25 +220,7 @@
             if (@json($form['approved_by_signature'])) {
                 approvedBySignaturePad.fromDataURL(@json($form['approved_by_signature']));
             }
-
-            // When the form is submitted, update the hidden input with the base64 signature
-            document.querySelector('form').addEventListener('submit', function () {
-                document.getElementById('from_signature').value = fromSignaturePad.toDataURL();
-                document.getElementById('to_signature').value = toSignaturePad.toDataURL();
-                document.getElementById('approved_by_signature').value = approvedBySignaturePad.toDataURL();
-            });
-
-            document.querySelector('form').addEventListener('submit', function () {
-                if (!fromSignaturePad.isEmpty()) {
-                    const signatureData = fromSignaturePad.toDataURL();
-                    console.log("Signature Data:", signatureData);  // Debug: Check if signature is captured
-                    document.getElementById('from_signature').value = signatureData;  // Save the signature
-                } else {
-                    console.log("Signature Pad is empty");
-                    document.getElementById('from_signature').value = '';
-                }
-            });
-        });
+        })
 
         // Function to clear the signature pad and reset the hidden input field
         function clearSignaturePad(canvasId, inputId) {
@@ -244,5 +228,14 @@
             signaturePad.clear();
             document.getElementById(inputId).value = '';  // Clear the hidden input
         }
+
+        // Function to set canvas size properly (small)
+        function resizeCanvas(canvas) {
+            canvas.width = 300;  // Adjust width here (300px)
+            canvas.height = 100; // Adjust height here (100px)
+            const ctx = canvas.getContext("2d");
+            ctx.scale(1, 1);
+        }
     </script>
+
 @endpush
