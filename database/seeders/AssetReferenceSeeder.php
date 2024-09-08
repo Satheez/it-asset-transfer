@@ -2,7 +2,7 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\AssetReference;
 use Illuminate\Database\Seeder;
 
 class AssetReferenceSeeder extends Seeder
@@ -12,6 +12,13 @@ class AssetReferenceSeeder extends Seeder
      */
     public function run(): void
     {
-        //
+        // Force delete all existing data before seeding
+        AssetReference::truncate();
+
+        // Seed new sample data for serial numbers
+        AssetReference::factory()->count(100)->serialNumber()->create();
+
+        // Seed new sample data for asset tags
+        AssetReference::factory()->count(100)->assetTag()->create();
     }
 }

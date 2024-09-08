@@ -97,13 +97,50 @@
                     @foreach($assets as $index => $asset)
                         <tr>
                             <input type="hidden" wire:model="assets.{{ $index }}.id">
+
+                            {{--                            <td>--}}
+                            {{--                                <input type="text" wire:model="assets.{{ $index }}.serial_number"--}}
+                            {{--                                       class="form-control" required placeholder="{{ __('Enter Serial Number') }}">--}}
+                            {{--                            </td>--}}
+                            {{--                            <td>--}}
+                            {{--                                <input type="text" wire:model="assets.{{ $index }}.asset_tag"--}}
+                            {{--                                       class="form-control" required placeholder="{{ __('Enter Asset Tag') }}">--}}
+                            {{--                            </td>--}}
+
+                            <!-- Serial Number Input with Suggestions -->
                             <td>
                                 <input type="text" wire:model="assets.{{ $index }}.serial_number"
                                        class="form-control" required placeholder="{{ __('Enter Serial Number') }}">
+
+                                <!-- Display serial number suggestions -->
+                                @if(!empty($serialNumberSuggestions[$index]))
+                                    <ul class="list-group">
+                                        @foreach($serialNumberSuggestions[$index] as $suggestion)
+                                            <li class="list-group-item"
+                                                wire:click="selectSerialNumber({{ $index }}, '{{ $suggestion }}')">
+                                                {{ $suggestion }}
+                                            </li>
+                                        @endforeach
+                                    </ul>
+                                @endif
                             </td>
+
+                            <!-- Asset Tag Input with Suggestions -->
                             <td>
                                 <input type="text" wire:model="assets.{{ $index }}.asset_tag"
                                        class="form-control" required placeholder="{{ __('Enter Asset Tag') }}">
+
+                                <!-- Display asset tag suggestions -->
+                                @if(!empty($assetTagSuggestions[$index]))
+                                    <ul class="list-group">
+                                        @foreach($assetTagSuggestions[$index] as $suggestion)
+                                            <li class="list-group-item"
+                                                wire:click="selectAssetTag({{ $index }}, '{{ $suggestion }}')">
+                                                {{ $suggestion }}
+                                            </li>
+                                        @endforeach
+                                    </ul>
+                                @endif
                             </td>
                             <td>
                                 <input type="text" wire:model="assets.{{ $index }}.item_description"
