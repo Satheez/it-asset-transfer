@@ -120,15 +120,13 @@ class ItTransferForm extends Component
 //            $this->form['from_signature'] = $this->fromSignaturePad->toDataURL();
 //        }
 
-        dd($this->form);
-
-        if ($this->form['to_signature']) {
-            $this->form['to_signature'] = $this->toSignaturePad->toDataURL();
-        }
-
-        if ($this->form['approved_by_signature']) {
-            $this->form['approved_by_signature'] = $this->approvedBySignaturePad->toDataURL();
-        }
+//        if ($this->form['to_signature']) {
+//            $this->form['to_signature'] = $this->toSignaturePad->toDataURL();
+//        }
+//
+//        if ($this->form['approved_by_signature']) {
+//            $this->form['approved_by_signature'] = $this->approvedBySignaturePad->toDataURL();
+//        }
 
         if ($this->formId) {
             //$formModel = ItTransfer::findOrFail($this->formId);
@@ -145,8 +143,8 @@ class ItTransferForm extends Component
         foreach ($this->assets as $asset) {
             if (isset($asset['id'])) {
                 // Update existing asset
-//                $formModel->itAssets()->where('id', $asset['id'])->update($asset);
-//                $newAssetIds[] = $asset['id'];
+                $formModel->itAssets()->where('id', $asset['id'])->update($asset);
+                $newAssetIds[] = $asset['id'];
             } else {
                 // Create new asset
                 $newAsset = $formModel->itAssets()->create($asset);
