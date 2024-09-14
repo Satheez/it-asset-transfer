@@ -188,6 +188,7 @@ class ItTransferForm extends Component
 
     public function updatedSerialNumberInput(): void
     {
+        dd('cat');
         // Fetch matching serial numbers from the database
         $this->serialNumberSuggestions = $this->getSuggestions(AssetReference::TYPE_SERIAL_NUMBER, $this->serialNumberInput);
     }
@@ -203,6 +204,7 @@ class ItTransferForm extends Component
      */
     public function updatedAssets($value, $key): void
     {
+        dd('updatedAssets');
         // Determine which asset row and field is being updated
         [$index, $field] = explode('.', $key);
 

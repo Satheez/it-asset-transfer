@@ -62,7 +62,7 @@
                             <label for="to_signature"
                                    class="block text-sm font-medium text-gray-700">{{ __('Signature') }}</label>
                             <canvas id="to_signature_canvas" class="border border-gray-300 rounded-md"></canvas>
-                            <input type="hidden" wire:model="form.to_signature" id="to_signature">
+                            {{--                            <input type="hidden" wire:model="form.to_signature" id="to_signature">--}}
                             <!-- Floating Reset Button -->
                             <button type="button" onclick="clearSignaturePad('to_signature_canvas', 'to_signature')"
                                     class="absolute bottom-1 right-1 bg-red-500 text-white px-2 py-1 rounded-md text-xs">
@@ -88,7 +88,7 @@
                                    class="block text-sm font-medium text-gray-700">{{ __('Signature') }}</label>
                             <canvas id="approved_by_signature_canvas"
                                     class="border border-gray-300 rounded-md"></canvas>
-                            <input type="hidden" wire:model="form.approved_by_signature" id="approved_by_signature">
+                            {{--                            <input type="hidden" wire:model="form.approved_by_signature" id="approved_by_signature">--}}
                             <!-- Floating Reset Button -->
                             <button type="button"
                                     onclick="clearSignaturePad('approved_by_signature_canvas', 'approved_by_signature')"
@@ -119,9 +119,39 @@
 
                                 <!-- Serial Number Input with Suggestions -->
                                 <td class="px-4 py-2 border border-gray-300">
-                                    <input type="text" wire:model="assets.{{ $index }}.serial_number"
-                                           class="block w-full border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
-                                           required placeholder="{{ __('Enter Serial Number') }}">
+                                    {{--                                    <input type="text" wire:model="assets.{{ $index }}.serial_number"--}}
+                                    {{--                                           class="block w-full border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500"--}}
+                                    {{--                                           required placeholder="{{ __('Enter Serial Number') }}">--}}
+
+                                    <div class="relative">
+                                        <!-- Serial Number Input -->
+                                        <input type="text"
+                                               wire:model.debounce.300ms="assets.{{ $index }}.serial_number"
+                                               class="block w-full border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
+                                               placeholder="{{ __('Enter Serial Number') }}"
+                                               list="serialNumberList-{{ $index }}" autocomplete="off"/>
+
+                                        <!-- Datalist for Autocomplete Suggestions -->
+                                        @if(!empty($serialNumberSuggestions[$index]))
+                                        <datalist id="serialNumberList-{{ $index }}">
+                                            @foreach($serialNumberSuggestions[$index] as $suggestion)
+                                                <option value="{{ $suggestion }}">{{ $suggestion }}</option>
+                                            @endforeach
+                                        </datalist>
+                                        @endif
+
+                                        <!-- If you want a dropdown instead of datalist -->
+                                        @if(!empty($serialNumberSuggestions[$index]))
+                                            <ul class="absolute z-10 bg-white shadow-lg max-h-40 overflow-y-auto rounded-md mt-1 w-full">
+                                                @foreach($serialNumberSuggestions[$index] as $suggestion)
+                                                    <li class="px-4 py-2 cursor-pointer hover:bg-gray-200"
+                                                        wire:click="selectSerialNumber({{ $index }}, '{{ $suggestion }}')">
+                                                        {{ $suggestion }}
+                                                    </li>
+                                                @endforeach
+                                            </ul>
+                                        @endif
+                                    </div>
                                 </td>
 
                                 <!-- Asset Tag Input with Suggestions -->
@@ -192,13 +222,13 @@
 
         document.querySelector('form').addEventListener('submit', function () {
             const fromSignatureData = !fromSignaturePad.isEmpty() ? fromSignaturePad.toDataURL() : null;
-            @this.set('form.from_signature', fromSignatureData);
+            @this.set('form.from_signature', fromSignatureData)
 
             const toSignatureData = !toSignaturePad.isEmpty() ? toSignaturePad.toDataURL() : null;
-            @this.set('form.to_signature', toSignatureData);
+            @this.set('form.to_signature', toSignatureData)
 
             const approvedBySignatureData = !approvedBySignaturePad.isEmpty() ? approvedBySignaturePad.toDataURL() : null;
-            @this.set('form.approved_by_signature', approvedBySignatureData);
+        @this.set('form.approved_by_signature', approvedBySignatureData)
         });
 
 
